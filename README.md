@@ -82,3 +82,110 @@ Open a PR with changes. Run tests and ensure formatting remains consistent.
 ---
 
 For more details, see `main.py` and `utils/storage.py`.
+
+---
+
+Simple Python CLI for Managing Users, Projects, and Tasks
+
+## Setup
+
+Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running the CLI
+
+The default data file is located at `data/data.json`. You can change it by setting the `CLI_DB` environment variable.
+
+### Examples
+
+Add a user:
+
+```bash
+python main.py add-user --name "Alex" --email "alex@example.com"
+```
+
+Add a project:
+
+```bash
+python main.py add-project --user "Alex" --title "CLI Tool" --description "Tooling" --due-date "2026-06-30"
+```
+
+Add a task:
+
+```bash
+python main.py add-task --project "CLI Tool" --title "Implement add-task" --assigned-to "Alex" --user Alex
+```
+
+List users:
+
+```bash
+python main.py list-users
+```
+
+List projects for a user:
+
+```bash
+python main.py list-projects --user "Alex"
+```
+
+List tasks for a project:
+
+```bash
+python main.py list-tasks --project "CLI Tool" --user "Alex"
+```
+
+Complete a task:
+
+```bash
+python main.py complete-task --project "CLI Tool" --task "Implement add-task" --user Alex
+```
+
+## CLI Commands Overview
+
+- `add-user`: Create a new user with a name and email.
+- `list-projects`: List projects (optionally for a single user).
+- `complete-task`: Mark a task as done.
+
+## Project Structure
+
+- `main.py`: The main CLI entry point.
+- `models/`: Contains `User`, `Project`, and `Task` classes.
+- `utils/storage.py`: Manages JSON loading and saving.
+- `data/`: Location for the default JSON data file.
+- `tests/`: Unit tests for models, storage, and CLI helpers.
+
+## Running Tests
+
+To run the tests, first install the test dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Then run:
+
+```bash
+pytest -q
+```
+
+## Known Issues
+
+- Some CLI commands may have remnants from an earlier implementation using `click`.
+- If `data/data.json` contains malformed JSON, it will reset without backups.
+- Project and task title uniqueness is enforced per user.
+
+## Contributing
+
+Feel free to open a pull request with your changes. Ensure tests are passing and the formatting remains consistent.
+
+For more details, check `main.py` and `utils/storage.py`.

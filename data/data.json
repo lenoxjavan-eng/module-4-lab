@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": "7041d4db-0615-4a25-8418-2cdff5e3d9c6",
+      "name": "Alex",
+      "email": "alex@example.com",
+      "projects": [
+        {
+          "id": "050189af-eecc-47c1-ab8e-9c4c4abc7cfa",
+          "title": "CLI Tool",
+          "description": "Tooling",
+          "due_date": "2026-06-30",
+          "tasks": [
+            {
+              "id": "8e6d58be-8432-40f0-92f6-8e923f920cfd",
+              "title": "Implement add-task",
+              "status": "todo",
+              "assigned_to": "Alex"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Sam",
+      "email": "sam@example.com",
+      "projects": []
+    }
+  ]
+}

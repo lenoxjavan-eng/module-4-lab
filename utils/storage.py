@@ -4,12 +4,8 @@ from pathlib import Path
 from typing import Optional
 from models import User, Project, Task
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
-if not logger.handlers:
-    handler = logging.StreamHandler()
-    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
-    logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
 
 
 class JSONStore:
@@ -28,15 +24,14 @@ class JSONStore:
                 raw = json.load(f)
                 self._data = raw
         except Exception:
-            # malformed or unreadable data -> reset
-            logger.exception("Failed to load JSON data, resetting storage")
+            logger.error("Failed to load JSON data, resetting storage", exc_info=True)
             self._data = {"users": []}
             self._save()
 
     def _save(self):
         with open(self.path, "w", encoding="utf-8") as f:
             json.dump(self._data, f, indent=2)
-        logger.debug("Saved data to %s", str(self.path))
+        logger.info("Saved data to %s", self.path)
 
     @property
     def users(self):
@@ -45,7 +40,7 @@ class JSONStore:
     def add_user(self, user: User):
         self._data.setdefault("users", []).append(user.to_dict())
         self._save()
-        logger.debug("Added user: %s", user)
+        logger.info("Added user: %s", user)
 
     def find_user(self, name: str) -> Optional[User]:
         for u in self._data.get("users", []):
@@ -59,7 +54,7 @@ class JSONStore:
                 self._data["users"][i] = user.to_dict()
                 self._save()
                 return
-        logger.debug("Updated user: %s", user)
+        logger.info("Updated user: %s", user)
 
     def complete_task(self, project_title: str, task_title: str, owner_name: Optional[str] = None) -> bool:
         # find project

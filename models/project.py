@@ -1,7 +1,4 @@
-from typing import List, Optional, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from .task import Task
+from typing import List, Optional
 
 
 class Project:

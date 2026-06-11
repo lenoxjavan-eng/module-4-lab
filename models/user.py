@@ -1,7 +1,4 @@
-from typing import List, Optional, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from .project import Project
+from typing import List, Optional
 
 
 class Person:
